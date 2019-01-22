@@ -1,6 +1,6 @@
 var RestClient = require("deribit-api").RestClient;
 
-var restClient = new RestClient('HwjG9hsiYvLb','7G5RG3I3OCX74B77FGDO2AYTFRXUTTGR', 'https://test.deribit.com');
+var restClient = new RestClient('HYhnLyH9qEvs','YC5OQQH7ECTQTORNALOPSVSPMSFXYWC7', 'https://test.deribit.com');
 var startBtc;
 var btcNow;
 var tw = require( './trendyways.min.js')
@@ -107,7 +107,7 @@ restClient.account().then((result) => {
 	//console.log(result);
   avail = result.result.availableFunds;
   btcNow=(result.result.equity);
-  coonsole.log(btcNow);
+  console.log(btcNow);
 
 });
 }, 1000)
