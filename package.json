@@ -9,13 +9,13 @@
     "google-spreadsheet": "*"
   },
   "scripts": {
-    "start": "node polofibbmonster.js"
+    "start": "node deribit.js"
   },
   "deprecated": false,
   "description": "Engine for Polo automation",
   "engines": {
     "node": ">=0.6"
   },
-  "name": "polofibbmonster",
+  "name": "deribit",
   "version": "1.0.4"
 }
