@@ -12,7 +12,7 @@ var count = 0;
 var gogo = true;
 var doc = new GoogleSpreadsheet('1pN7RECRznPYKGgpyJdkfTacEX-OxjQyo9YyDLhIRB5M');
 restClient.account().then((result) => {
-  startBtc=10.22920249;
+  startBtc=100.22821054;
 });
 async.series([
     function setAuth(step) {
