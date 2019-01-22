@@ -1,6 +1,6 @@
 var RestClient = require("deribit-api").RestClient;
 
-var restClient = new RestClient('HYhnLyH9qEvs','YC5OQQH7ECTQTORNALOPSVSPMSFXYWC7', 'https://test.deribit.com');
+var restClient = new RestClient('HwjG9hsiYvLb','7G5RG3I3OCX74B77FGDO2AYTFRXUTTGR', 'https://test.deribit.com');
 var startBtc;
 var btcNow;
 var tw = require( './trendyways.min.js')
@@ -12,7 +12,7 @@ var count = 0;
 var gogo = true;
 var doc = new GoogleSpreadsheet('1pN7RECRznPYKGgpyJdkfTacEX-OxjQyo9YyDLhIRB5M');
 restClient.account().then((result) => {
-  startBtc=10;
+  startBtc=2.271064055;
 });
 async.series([
     function setAuth(step) {
@@ -123,7 +123,7 @@ var roc2;
 var tar;
 setTimeout(function(){
 
-tar = (btcNow * ha) / 6;
+tar = (btcNow * ha) / 3;
 })
 setInterval(function(){
 	console.log('interval')
@@ -179,7 +179,7 @@ for (var o in result[a]){
 		}
 	});
 if (go){
-	tar = tar + 1500;
+	tar = tar + 750;
 		restClient.sell('BTC-PERPETUAL', tar, ha).then((result) => {
 					});
 		restClient.buy('BTC-PERPETUAL', tar, lb).then((result) => {
@@ -232,7 +232,7 @@ if (result.result.asks[a].price < ha){
 var can = false;
 if (gogo == true && buying != lbOld && (roc2[roc2.length-1].roc < 0.01 || roc2[roc2.length-1].roc > -0.01)){
 can = true;
-tar = (btcNow * ha) / 6;
+tar = (btcNow * ha) / 3;
 setTimeout(function(){
 restClient.buy('BTC-PERPETUAL', tar, lb).then((result) => {
 buying = lb;
@@ -241,7 +241,7 @@ count++;
 }, 800);
 }
 if (gogo == true && selling != haOld && (roc2[roc2.length-1].roc < 0.01 || roc2[roc2.length-1].roc > -0.01)){
-	tar = (btcNow * ha) / 6;
+	tar = (btcNow * ha) / 3;
 can = true;
 setTimeout(function(){
 restClient.sell('BTC-PERPETUAL', tar, ha).then((result) => {
