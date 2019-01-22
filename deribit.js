@@ -132,13 +132,13 @@ setInterval(function(){
 		for (var r in result){
 			for (var a in result[r]){
 				console.log(result[r][a].direction);
-				if (result[r][a].size > 10000 || result[r][a].size < -10000){
+				if (result[r][a].size > 2500 || result[r][a].size < -2500){
 				var s = result[r][a].size;
 				console.log('20000')
 			if (result[r][a].direction == 'sell'){
 				console.log('buybuy')
 				restClient.cancelall().then((result) => {
-		restClient.buy('BTC-PERPETUAL',  -1 *Math.floor(s/4), ha).then((result) => {
+		restClient.buy('BTC-PERPETUAL',  -1 *Math.floor(s/3), ha).then((result) => {
 			console.log(result);
 					});
 			console.log(result);
@@ -146,7 +146,7 @@ setInterval(function(){
 			} else {
 				console.log('sellsell')
 				restClient.cancelall().then((result) => {
-		restClient.sell('BTC-PERPETUAL', Math.floor(s/4), lb).then((result) => {
+		restClient.sell('BTC-PERPETUAL', Math.floor(s/3), lb).then((result) => {
 			console.log(result);
 					});
 	});
