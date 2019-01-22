@@ -71,6 +71,7 @@ function sheetaddrow(){
                 'Pos': pos,
                 'tar': tar,
                 'tar 1.5': tar * 1.5,
+                'neg tar 1.5': tar * 1.5 * -1,
                 'Avail': avail,
                 'btcNow': btcNow,
                 'PNL Current Pos': pnl * 100 + '%',
