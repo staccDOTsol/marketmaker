@@ -1,0 +1,21 @@
+{
+  "author": {
+    "name": "Jarett Dunn",
+    "email": "jarettrsdunn@gmail.com"
+  },
+  "bundleDependencies": false,
+  "dependencies": {
+    "deribit-api": "*",
+    "google-spreadsheet": "*"
+  },
+  "scripts": {
+    "start": "node polofibbmonster.js"
+  },
+  "deprecated": false,
+  "description": "Engine for Polo automation",
+  "engines": {
+    "node": ">=0.6"
+  },
+  "name": "polofibbmonster",
+  "version": "1.0.4"
+}
