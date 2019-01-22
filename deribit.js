@@ -69,6 +69,8 @@ function sheetaddrow(){
             .addRow({
                 'Time': new Date().toLocaleString(),
                 'Pos': pos,
+                'tar': tar,
+                'tar 1.5': tar * 1.5,
                 'Avail': avail,
                 'btcNow': btcNow,
                 'PNL Current Pos': pnl * 100 + '%',
