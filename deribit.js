@@ -155,6 +155,26 @@ setInterval(function(){
 	});
 			}
 		}
+		if (result[r][a].size > (tar * 3) || result[r][a].size < (-1 * tar * 3)){
+				var s = result[r][a].size;
+				console.log('20000')
+			if (result[r][a].direction == 'sell'){
+				console.log('buybuy')
+				restClient.cancelall().then((result) => {
+		restClient.buy('BTC-PERPETUAL',  -1 *Math.floor(s/2), lb).then((result) => {
+			console.log(result);
+					});
+			console.log(result);
+					});
+			} else {
+				console.log('sellsell')
+				restClient.cancelall().then((result) => {
+		restClient.sell('BTC-PERPETUAL', Math.floor(s/2), ha).then((result) => {
+			console.log(result);
+					});
+	});
+			}
+		}
 	}
 		}
 	});
