@@ -89,10 +89,10 @@ Rate of Change (Since you loaded this page): <div id='roc'></div>
                 pos.push([jsondata.time, jsondata.pos]);
                 perc.push([jsondata.time, jsondata.percent])
                 console.log('perc now ' + perc[perc.length-1][1])
-                if (perc[perc.length-120] != undefined){
+                if (perc[perc.length-30] != undefined){
                 
-                console.log('perc min ago ' + perc[perc.length-120][1])
-                var onetwenny = perc[perc.length-120][1];
+                console.log('perc min ago ' + perc[perc.length-30][1])
+                var onetwenny = perc[perc.length-30][1];
                 var onemin = (100*(1-(onetwenny/perc[perc.length-1][1])));
                 } else {
                 var onemin = perc[perc.length-1][1];
