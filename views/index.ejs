@@ -106,9 +106,6 @@
                 chart3.series[0].setData((equity));
                 chart3.series[1].setData((avail));
                 chart4.series[0].setData((perc));
-                    derivs.push((perc[perc.length-1]-perc[0])/perc[perc.length-1]*100.0)
-                    derivs = derivs.splice(0, derivs.length - 600);
-                chart5.series[0].setData((derivs));
 				console.log(jsondata.trades14);
                // chart = Highcharts.stockChart('container', options);
             });
@@ -365,7 +362,7 @@
 
 
         title: {
-            text: 'Percent'
+            text: 'Rate of Change'
         },
 
 
