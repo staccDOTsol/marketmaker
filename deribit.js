@@ -356,7 +356,7 @@ for (var o in result[a]){
 })
 }
 });
-}, 1000);
+}, 5000);
 
 setInterval(function(){
 if (count>3){
