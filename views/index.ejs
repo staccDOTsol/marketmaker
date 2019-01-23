@@ -107,8 +107,8 @@
                 chart4.series[0].setData((perc));
                     deriv = 0
                     coefficient = perc
-                    N = perc.length # points
-                    h = 1 # second
+                    N = perc.length
+                    h = 1 
                     for i range(0,N):
                        deriv += y[i] * coefficient[i]
                     deriv /= (12 * h)
