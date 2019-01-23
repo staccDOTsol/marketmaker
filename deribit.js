@@ -215,7 +215,7 @@ var lbs = []
 var tar;
 setTimeout(function(){
 
-tar = (btcNow * ha) / 16;
+tar = (btcNow * ha) / 4;
 })
 setInterval(function(){
 	console.log('interval')
@@ -224,7 +224,7 @@ setInterval(function(){
 		for (var r in result){
 			for (var a in result[r]){
 				console.log(result[r][a].direction);
-				if (result[r][a].size > ((tar * 1.25)) || result[r][a].size < (-1 * (tar * 1.25))){
+				if (result[r][a].size > ((tar * 1.5)) || result[r][a].size < (-1 * (tar * 1.5))){
 				var s = result[r][a].size;	
 				console.log('20000')
 			if (result[r][a].direction == 'sell'){
@@ -244,7 +244,7 @@ setInterval(function(){
 	});
 			}
 		}
-		if (result[r][a].size > ((tar * 2.5 )						) || result[r][a].size < (-1 * (tar * 2.5) )){
+		if (result[r][a].size > ((tar * 3 )						) || result[r][a].size < (-1 * (tar * 3) )){
 
 					liq = 'double outter bounds'
 				var s = result[r][a].size;
@@ -324,7 +324,7 @@ if (result.result.asks[a].price < ha){
 var can = false;
 if (gogo == true && buying != lbOld ){
 can = true;
-tar = (btcNow * ha) / 16;
+tar = (btcNow * ha) / 4;
 setTimeout(function(){
 restClient.buy('BTC-PERPETUAL', tar, lb).then((result) => {
 buying = lb;
@@ -333,7 +333,7 @@ count++;
 }, 800);
 }
 if (gogo == true && selling != haOld ){
-	tar = (btcNow * ha) / 16;
+	tar = (btcNow * ha) / 4;
 can = true;
 setTimeout(function(){
 restClient.sell('BTC-PERPETUAL', tar, ha).then((result) => {
