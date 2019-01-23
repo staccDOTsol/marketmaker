@@ -88,7 +88,7 @@ Rate of Change: <div id='roc'></div>
                 ntar3.push([jsondata.time,  -1 * jsondata.tar * 3])
                 pos.push([jsondata.time, jsondata.pos]);
                 perc.push([jsondata.time, jsondata.percent])
-                $('#roc').html(((jsondata.percent-fperc)/jsondata.percent*100.0).toPrecision(4) + '%');
+                $('#roc').html((((jsondata.percent-fperc)/perc.length / 30) * 100).toPrecision(4) + '%');
                 console.log((jsondata.percent-fperc)/jsondata.percent*100.0);
 				chart.series[0].setData(asks);
                 chart1.series[0].setData((pos));
