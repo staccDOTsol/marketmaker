@@ -147,7 +147,7 @@ setInterval(function(){
 restClient.cancelall().then((result) => {
 
 });
-}, 180000)
+}, 5000)
 var liq;
 function sheetaddrow(){
 	console.log('addrow')
@@ -356,7 +356,7 @@ for (var o in result[a]){
 })
 }
 });
-}, 5000);
+}, 1000);
 
 setInterval(function(){
 if (count>3){
