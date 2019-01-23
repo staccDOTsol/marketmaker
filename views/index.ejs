@@ -70,6 +70,7 @@
 		var quoinexAsks = []
 		var quoinexBids = []
         var perc = []
+        var derivs = []
         setInterval(function() {
             //chart = Highcharts.stockChart('container', options);
             $.getJSON('http://deribit-deribit.7e14.starter-us-west-2.openshiftapps.com/update?name=test', function(jsondata) {
@@ -105,14 +106,7 @@
                 chart3.series[0].setData((equity));
                 chart3.series[1].setData((avail));
                 chart4.series[0].setData((perc));
-                    deriv = 0
-                    coefficient = perc
-                    N = perc.length
-                    h = 1 
-                    for i range(0,N):
-                       deriv += y[i] * coefficient[i]
-                    deriv /= (12 * h)
-                    derivs.push(deriv);
+                    derivs.push((perc[perc.length-1]-perc[0])/perc[perc.length-1]*100.0)
                     derivs = derivs.splice(0, arr.length - 600);
                 chart5.series[0].setData((derivs));
 				console.log(jsondata.trades14);
@@ -394,8 +388,7 @@
             split: true
         },
         series: [{
-                name: 'Rate of Change',
-                data: derivs,
+                name: 'Rate of Change (last 600 percs)',
                 color: '#00FF00'
             }
         ]
