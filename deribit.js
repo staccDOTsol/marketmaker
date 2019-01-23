@@ -224,7 +224,7 @@ setInterval(function(){
 		for (var r in result){
 			for (var a in result[r]){
 				console.log(result[r][a].direction);
-				if (result[r][a].size > ((tar * 1.5)) || result[r][a].size < (-1 * (tar * 1.5))){
+				if (result[r][a].size > ((tar * 1.25)) || result[r][a].size < (-1 * (tar * 1.25))){
 				var s = result[r][a].size;	
 				console.log('20000')
 			if (result[r][a].direction == 'sell'){
@@ -244,7 +244,7 @@ setInterval(function(){
 	});
 			}
 		}
-		if (result[r][a].size > ((tar * 3 )						) || result[r][a].size < (-1 * (tar * 3) )){
+		if (result[r][a].size > ((tar * 2.5 )						) || result[r][a].size < (-1 * (tar * 2.5) )){
 
 					liq = 'double outter bounds'
 				var s = result[r][a].size;
