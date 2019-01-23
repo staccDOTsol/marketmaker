@@ -62,6 +62,11 @@ setInterval(function(){
 	}
 	oldPerc = -1*(100*(1-( btcNow / startBtc) )).toPrecision(4);
 }, 30000)
+setInterval(function(){
+restClient.cancelall().then((result) => {
+
+});
+}, 180000)
 function sheetaddrow(){
 	console.log('addrow')
 	try {
@@ -71,7 +76,7 @@ function sheetaddrow(){
                 'Pos': pos,
                 'tar': tar,
                 'tar 1.5': tar * 2,
-                'neg tar 1.5': tar * 2 * -1,
+                'neg tar 1.5': tar * 2	 * -1,
                 'Avail': avail,
                 'btcNow': btcNow,
                 'PNL Current Pos': pnl * 100 + '%',
