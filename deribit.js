@@ -140,8 +140,8 @@ setInterval(function(){
 		for (var r in result){
 			for (var a in result[r]){
 				console.log(result[r][a].direction);
-				if (result[r][a].size > ((tar * 2)) || result[r][a].size < (-1 * (tar * 25))){
-				var s = result[r][a].size;
+				if (result[r][a].size > ((tar * 2)) || result[r][a].size < (-1 * (tar * 2))){
+				var s = result[r][a].size;tar *
 				console.log('20000')
 			if (result[r][a].direction == 'sell'){
 				console.log('buybuy')
@@ -160,7 +160,7 @@ setInterval(function(){
 	});
 			}
 		}
-		if (result[r][a].size > ((tar * 4 )						) || result[r][a].size < (-1 * (tar * 4) )){
+		if (result[r][a].size > ((tar * 3 )						) || result[r][a].size < (-1 * (tar * 3) )){
 				var s = result[r][a].size;
 				console.log('20000')
 			if (result[r][a].direction == 'sell'){
