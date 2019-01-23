@@ -42,9 +42,32 @@ setTimeout(function(){
 sheetaddrow();
 },10000);
 var oldPerc = 0;
+
+setInterval(function(){
+	console.log(avail / btcNow);
+		if (avail / btcNow > 0.66){
+
+					liq = 'margin > 66%'
+			restClient.positions().then((result) => {	
+		for (var r in result){
+			for (var a in result[r]){
+			if (result[r][a].direction == 'sell'){
+				restClient.buy(result[r][a].instrument, -1 * result[r][a].size, lb, 'safe').then((result) => {
+					});
+			} else {
+				restClient.sell(result[r][a].instrument, result[r][a].size, ha, 'safe').then((result) => {
+					});
+			}
+		}
+		}
+	});
+		}
+}, 3500)
 setInterval(function(){
 	if (oldPerc != 0){
 		if (-1*(100*(1-( btcNow / startBtc) )).toPrecision(4) - oldPerc < -0.015){
+
+					liq = 'portfolio > 1.5% loss in 30s'
 			restClient.positions().then((result) => {	
 		for (var r in result){
 			for (var a in result[r]){
@@ -67,6 +90,7 @@ restClient.cancelall().then((result) => {
 
 });
 }, 180000)
+var liq;
 function sheetaddrow(){
 	console.log('addrow')
 	try {
@@ -76,6 +100,7 @@ function sheetaddrow(){
                 'Pos': pos,
                 'tar': tar,
                 'tar 1.5': tar * 2,
+                'last liquidation' : liq,
                 'neg tar 1.5': tar * 2	 * -1,
                 'Avail': avail,
                 'btcNow': btcNow,
@@ -95,6 +120,7 @@ restClient.positions().then((result) => {
 			for (var a in result[r]){
   pnl = result[r][a].profitLoss;
 				if(result[r][a].profitLoss < -0.030 ){
+					liq = 'post < 3%'
 			if (result[r][a].direction == 'sell'){
 				restClient.buy(result[r][a].instrument, -1 * result[r][a].size, ha, 'safe').then((result) => {
 					});
@@ -127,7 +153,6 @@ var ha = 5000000000000000000000000000;
 var lb = 0;
 var has = []
 var lbs = []
-var roc2;
 var tar;
 setTimeout(function(){
 
@@ -161,6 +186,8 @@ setInterval(function(){
 			}
 		}
 		if (result[r][a].size > ((tar * 3 )						) || result[r][a].size < (-1 * (tar * 3) )){
+
+					liq = 'double outter bounds'
 				var s = result[r][a].size;
 				console.log('20000')
 			if (result[r][a].direction == 'sell'){
@@ -215,22 +242,6 @@ if (go){
 }
 	});
 
-	if (roc2[roc2.length-1].roc > 0.01 || roc2[roc2.length-1].roc < -0.01){
-	restClient.positions().then((result) => {	
-		for (var r in result){
-			for (var a in result[r]){
-			if (result[r][a].direction == 'sell'){
-				restClient.buy(result[r][a].instrument, -1 * result[r][a].size, lb).then((result) => {
-					});
-			} else {
-				restClient.sell(result[r][a].instrument, result[r][a].size, ha).then((result) => {
-					});
-			}
-		}
-		}
-	});
-
-	}
 }, 5000);
 setInterval(function(){
 restClient.getorderbook('BTC-PERPETUAL').then((result) => {
@@ -239,7 +250,6 @@ lb = 0;
 for (var a in result.result.bids){
 if (result.result.bids[a].price > lb){
 	lb = result.result.bids[a].price;
-	lbs.push(lb);
 	lbOld = lb;
 	if (lbs.length == 10){
 		lbs.shift();
@@ -249,16 +259,11 @@ if (result.result.bids[a].price > lb){
 for(var a in result.result.asks){
 if (result.result.asks[a].price < ha){
 	ha = result.result.asks[a].price
-	has.push({c:ha});
 	haOld = ha
-	if (has.length ==10){
-		has.shift();
-	}
-	roc2 = roc(has, 1);
 }
 }
 var can = false;
-if (gogo == true && buying != lbOld && (roc2[roc2.length-1].roc < 0.01 || roc2[roc2.length-1].roc > -0.01)){
+if (gogo == true && buying != lbOld ){
 can = true;
 tar = (btcNow * ha) / 4;
 setTimeout(function(){
@@ -268,7 +273,7 @@ count++;
 	});
 }, 800);
 }
-if (gogo == true && selling != haOld && (roc2[roc2.length-1].roc < 0.01 || roc2[roc2.length-1].roc > -0.01)){
+if (gogo == true && selling != haOld ){
 	tar = (btcNow * ha) / 4;
 can = true;
 setTimeout(function(){
@@ -296,6 +301,8 @@ for (var o in result[a]){
 
 setInterval(function(){
 if (count>3){
+
+	liq = 'not actually liquidating, but there were 4+ buys/sells at new prices so we took a 20s break'
 	gogo = false;
 	setTimeout(function(){
 		gogo = true;
