@@ -65,12 +65,12 @@
         var tar15 = []
         var ntar15 = []
         var equity = []
+        var perc = []
+        var derivs = []
     $(document).ready(function() {
         console.log("ready!");
 		var quoinexAsks = []
 		var quoinexBids = []
-        var perc = []
-        var derivs = []
         setInterval(function() {
             //chart = Highcharts.stockChart('container', options);
             $.getJSON('http://deribit-deribit.7e14.starter-us-west-2.openshiftapps.com/update?name=test', function(jsondata) {
