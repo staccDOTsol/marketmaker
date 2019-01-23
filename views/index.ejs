@@ -72,15 +72,13 @@
             //chart = Highcharts.stockChart('container', options);
             $.getJSON('http://deribit-deribit.7e14.starter-us-west-2.openshiftapps.com/update?name=test', function(jsondata) {
                 console.log(jsondata);
-				console.log(new Date().getTime());
-				var d = new Date().getTime();
-				asks.push([d, jsondata.ha]);
-                equity.push([d, jsondata.btcNow]);
-                avail.push([d, jsondata.avail]);
-                tar.push([d, jsondata.tar]);
-                tar15.push([d, jsondata.tar * 1.5])
-                ntar15.push([d,  -1 * jsondata.tar * 1.5])
-                pos.push([d, jsondata.pos]);
+				asks.push([jsondata.time, jsondata.ha]);
+                equity.push([jsondata.time, jsondata.btcNow]);
+                avail.push([jsondata.time, jsondata.avail]);
+                tar.push([jsondata.time, jsondata.tar]);
+                tar15.push([jsondata.time, jsondata.tar * 1.5])
+                ntar15.push([jsondata.time,  -1 * jsondata.tar * 1.5])
+                pos.push([jsondata.time, jsondata.pos]);
                 /* difference: btcNow - avail,
                     btcNow: btcNow,
                     avail: avail,
