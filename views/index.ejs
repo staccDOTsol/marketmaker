@@ -1,0 +1,391 @@
+<head>
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <script>
+        (adsbygoogle = window.adsbygoogle || []).push({
+            google_ad_client: "ca-pub-8504034781433425",
+            enable_page_level_ads: true
+        });
+    </script>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-120452160-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+        gtag('js', new Date());
+
+        gtag('config', 'UA-120452160-1');
+    </script>
+
+</head>
+<script src="https://code.jquery.com/jquery-1.9.1.js"></script>
+<a href="/arb">Arbitrage!</a> <a href="/">Homepage!</a>
+<script src="https://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+
+<!-- Resources -->
+<script src="https://www.amcharts.com/lib/3/amcharts.js"></script>
+<script src="https://www.amcharts.com/lib/3/serial.js"></script>
+<script src="https://www.amcharts.com/lib/3/plugins/dataloader/dataloader.min.js"></script>
+<script src="https://www.amcharts.com/lib/3/plugins/export/export.min.js"></script>
+<link rel="stylesheet" href="https://www.amcharts.com/lib/3/plugins/export/export.css" type="text/css" media="all" />
+<script src="https://www.amcharts.com/lib/3/themes/light.js"></script>
+<style>
+    #chartdiv {
+        width: 100%;
+        height: 500px;
+    }
+</style>
+
+<script src="https://code.highcharts.com/stock/highstock.js"></script>
+<script src="https://code.highcharts.com/stock/modules/exporting.js"></script>
+<script src="https://code.highcharts.com/stock/modules/export-data.js"></script>
+
+<div id="container" style="height: 800px; min-width: 310px"></div>
+<div id="container1" style="height: 800px; min-width: 310px"></div>
+<div id="container2" style="height: 800px; min-width: 310px"></div>
+<div id="container3" style="height: 800px; min-width: 310px"></div><!--
+<div id="chartdiv" style="height: 400px; min-width: 310px"></div>-->
+
+<form action="/" method="POST">
+    <input type="text" id="Input" name="Input" value="Search" />
+    <input type="submit">
+</form>
+<script>
+
+    var prices = [];
+    var rois = [];
+	var lasks = []; 
+        var asks = []
+        var pos = []
+        var tar = []
+        var avail = []
+        var tar15 = []
+        var ntar15 = []
+        var equity = []
+    $(document).ready(function() {
+        console.log("ready!");
+		var quoinexAsks = []
+		var quoinexBids = []
+        setInterval(function() {
+            //chart = Highcharts.stockChart('container', options);
+            $.getJSON('http://deribit-deribit.7e14.starter-us-west-2.openshiftapps.com/update?name=test', function(jsondata) {
+                console.log(jsondata);
+				console.log(new Date().getTime());
+				var d = new Date().getTime();
+				asks.push([d, jsondata.ha]);
+                equity.push([d, jsondata.btcNow]);
+                avail.push([d, jsondata.avail]);
+                tar.push([d, jsondata.tar]);
+                tar15.push([d, jsondata.tar * 1.5])
+                ntar15.push([d,  -1 * jsondata.tar * 1.5])
+                pos.push([d, jsondata.pos]);
+                /* difference: btcNow - avail,
+                    btcNow: btcNow,
+                    avail: avail,
+                    tar: tar,
+                    ha: ha,
+                    pos: pos,
+                    time: new Date().toLocaleString()});     */
+				chart.series[0].setData(asks);
+                chart1.series[0].setData((tar));
+                chart1.series[1].setData((tar15));
+                chart1.series[2].setData((ntar15));
+				chart2.series[0].setData((pos));
+                chart3.series[0].setData((equity));
+                chart3.series[1].setData((avail));
+				console.log(jsondata.trades14);
+               // chart = Highcharts.stockChart('container', options);
+            });
+        }, 500);
+    });
+
+    var trade = [],
+        vol = [],
+        i = 0;
+
+    i = 0;
+
+    i = 0;
+
+
+    var options = {
+
+
+
+        rangeSelector: {
+            buttons: [{
+                count: 1,
+                type: 'minute',
+                text: '1m'
+            }, {
+                count: 5,
+                type: 'minute',
+                text: '5m'
+            }, {
+                count: 7,
+                type: 'minute',
+                text: '7m'
+            }, {
+                count: 14,
+                type: 'minute',
+                text: '14m'
+            }, {
+                count: 1,
+                type: 'hour',
+                text: '1h'
+            }, {
+                type: 'all',
+                text: 'All'
+            }],
+            inputEnabled: false,
+            selected: 0
+        },
+
+
+        title: {
+            text: 'BTC Price'
+        },
+
+
+        yAxis: [{
+            labels: {
+                align: 'right',
+                x: -3
+            },
+            title: {
+                text: 'Price'
+            },
+            height: '40%',
+            lineWidth: 2,
+            resize: {
+                enabled: true
+            }
+        }],
+
+        tooltip: {
+            split: true
+        },
+        series: [{
+                name: 'Asks',
+                data: asks,
+                color: '#00FF00'
+            }
+        ]
+    }
+			
+
+    var options1 = {
+
+
+
+        rangeSelector: {
+            buttons: [{
+                count: 1,
+                type: 'minute',
+                text: '1m'
+            }, {
+                count: 5,
+                type: 'minute',
+                text: '5m'
+            }, {
+                count: 7,
+                type: 'minute',
+                text: '7m'
+            }, {
+                count: 14,
+                type: 'minute',
+                text: '14m'
+            }, {
+                count: 1,
+                type: 'hour',
+                text: '1h'
+            }, {
+                type: 'all',
+                text: 'All'
+            }],
+            inputEnabled: false,
+            selected: 0
+        },
+
+
+        title: {
+            text: 'Pos to Buy/Sell'
+        },
+
+
+        yAxis: [{
+            labels: {
+                align: 'right',
+                x: -3
+            },
+            title: {
+                text: 'Pos to Buy/Sell and Lower Threshold (Higher is 2x that)'
+            },
+            height: '40%',
+            lineWidth: 2,
+            resize: {
+                enabled: true
+            }
+        }],
+
+        tooltip: {
+            split: true
+        },
+        series: [{
+                name: 'Pos to Buy/Sell',
+                data: tar,
+                color: '#00FF00'
+            },
+            {
+                name: 'Lower Threshold',
+                data: ntar15,
+                color: '#0000FF'
+            },
+            {
+                name: 'Lower Threshold',
+                data: tar15,
+                color: '#0000FF'
+            }
+        ]
+    }
+
+    var options2 = {
+
+
+
+        rangeSelector: {
+            buttons: [{
+                count: 1,
+                type: 'minute',
+                text: '1m'
+            }, {
+                count: 5,
+                type: 'minute',
+                text: '5m'
+            }, {
+                count: 7,
+                type: 'minute',
+                text: '7m'
+            }, {
+                count: 14,
+                type: 'minute',
+                text: '14m'
+            }, {
+                count: 1,
+                type: 'hour',
+                text: '1h'
+            }, {
+                type: 'all',
+                text: 'All'
+            }],
+            inputEnabled: false,
+            selected: 0
+        },
+
+
+        title: {
+            text: 'Current Pos'
+        },
+
+
+        yAxis: [{
+            labels: {
+                align: 'right',
+                x: -3
+            },
+            title: {
+                text: 'Current Pos'
+            },
+            height: '40%',
+            lineWidth: 2,
+            resize: {
+                enabled: true
+            }
+        }],
+
+        tooltip: {
+            split: true
+        },
+        series: [{
+                name: 'Current Pos',
+                data: pos,
+                color: '#00FF00'
+            }
+        ]
+    }
+
+    var options3 = {
+
+
+
+        rangeSelector: {
+            buttons: [{
+                count: 1,
+                type: 'minute',
+                text: '1m'
+            }, {
+                count: 5,
+                type: 'minute',
+                text: '5m'
+            }, {
+                count: 7,
+                type: 'minute',
+                text: '7m'
+            }, {
+                count: 14,
+                type: 'minute',
+                text: '14m'
+            }, {
+                count: 1,
+                type: 'hour',
+                text: '1h'
+            }, {
+                type: 'all',
+                text: 'All'
+            }],
+            inputEnabled: false,
+            selected: 0
+        },
+
+
+        title: {
+            text: 'Equity vs. Avail'
+        },
+
+
+        yAxis: [{
+            labels: {
+                align: 'right',
+                x: -3
+            },
+            title: {
+                text: 'Equity Vs. Avail'
+            },
+            height: '40%',
+            lineWidth: 2,
+            resize: {
+                enabled: true
+            }
+        }],
+
+        tooltip: {
+            split: true
+        },
+        series: [{
+                name: 'Equity',
+                data: equity,
+                color: '#00FF00'
+            },{
+                name: 'Avail Margin',
+                data: avail,
+                color: '#0000FF'
+            }
+        ]
+    }
+            var chart = Highcharts.stockChart('container', options);
+            var chart1 = Highcharts.stockChart('container1', options1);
+            var chart2 = Highcharts.stockChart('container2', options2);
+            var chart3 = Highcharts.stockChart('container3', options3);
+</script>

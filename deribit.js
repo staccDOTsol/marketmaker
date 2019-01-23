@@ -1,6 +1,12 @@
 var RestClient = require("deribit-api").RestClient;
+const express = require('express');
+const app = express();
+var request = require("request")
+var bodyParser = require('body-parser')
+app.set('view engine', 'ejs');
 
-var restClient = new RestClient('HwjG9hsiYvLb','7G5RG3I3OCX74B77FGDO2AYTFRXUTTGR', 'https://test.deribit.com');
+app.listen(process.env.PORT || 8080, function() {});
+var restClient = new RestClient('HYhnLyH9qEvs','YC5OQQH7ECTQTORNALOPSVSPMSFXYWC7', 'https://test.deribit.com');
 var startBtc;
 var btcNow;
 var tw = require( './trendyways.min.js')
@@ -11,8 +17,60 @@ var sheet;
 var count = 0;
 var gogo = true;
 var doc = new GoogleSpreadsheet('1pN7RECRznPYKGgpyJdkfTacEX-OxjQyo9YyDLhIRB5M');
+
+app.get('/update', (req, res) => {
+
+	doPost(req, res)
+
+})
+app.get('/', (req, res) => {
+	doPost(req, res)
+
+
+	});
+async function doPost(req, res)
+{
+	/*
+	addRow({
+                'Time': new Date().toLocaleString(),
+                'Pos': pos,
+                'HA': ha,
+                'tar': tar,
+                'tar 1.5': tar * 2,
+                'last liquidation' : liq,
+                'neg tar 1.5': tar * 2	 * -1,
+                'Avail': avail,
+                'btcNow': btcNow,
+                'PNL Current Pos': pnl * 100 + '%',
+                'Difference': btcNow - avail,
+                'Percent': -1*(100*(1-( btcNow / startBtc) )).toPrecision(4) + '%'
+*/
+if (req.query.name){
+	console.log('name');
+				res.json({percent: -1*(100*(1-( btcNow / startBtc) )).toPrecision(4),
+					difference: btcNow - avail,
+					btcNow: btcNow,
+					avail: avail,
+					tar: tar,
+					ha: ha,
+					pos: pos,
+					time: new Date().toLocaleString()});	
+			
+			} else {
+				res.render('index.ejs', {
+					percent: -1*(100*(1-( btcNow / startBtc) )).toPrecision(4),
+					difference: btcNow - avail,
+					btcNow: btcNow,
+					avail: avail,
+					tar: tar,
+					ha: ha,
+					pos: pos,
+					time: new Date().toLocaleString()
+				})
+}
+}
 restClient.account().then((result) => {
-  startBtc=2.271064055;
+  startBtc=9.9998;
 });
 async.series([
     function setAuth(step) {
