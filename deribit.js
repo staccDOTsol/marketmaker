@@ -140,8 +140,8 @@ setInterval(function(){
 		for (var r in result){
 			for (var a in result[r]){
 				console.log(result[r][a].direction);
-				if (result[r][a].size > ((tar * 2)) || result[r][a].size < (-1 * (tar * 2))){
-				var s = result[r][a].size;tar *
+				if (result[r][a].size > ((tar * 1.5)) || result[r][a].size < (-1 * (tar * 1.5))){
+				var s = result[r][a].size;
 				console.log('20000')
 			if (result[r][a].direction == 'sell'){
 				console.log('buybuy')
