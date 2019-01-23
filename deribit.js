@@ -54,7 +54,7 @@ if (req.query.name){
 					tar: tar,
 					ha: ha,
 					pos: pos,
-					time: new Date()});	
+					time: new Date().getTime()});	
 			
 			} else {
 				res.render('index.ejs', {
@@ -65,7 +65,7 @@ if (req.query.name){
 					tar: tar,
 					ha: ha,
 					pos: pos,
-					time: new Date()
+					time: new Date().getTime()
 				})
 }
 }
