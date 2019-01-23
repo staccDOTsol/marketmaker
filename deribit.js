@@ -98,6 +98,7 @@ function sheetaddrow(){
             .addRow({
                 'Time': new Date().toLocaleString(),
                 'Pos': pos,
+                'HA': ha,
                 'tar': tar,
                 'tar 1.5': tar * 2,
                 'last liquidation' : liq,
