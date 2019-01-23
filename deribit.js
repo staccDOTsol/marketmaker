@@ -260,7 +260,7 @@ if (result.result.asks[a].price < ha){
 var can = false;
 if (gogo == true && buying != lbOld && (roc2[roc2.length-1].roc < 0.01 || roc2[roc2.length-1].roc > -0.01)){
 can = true;
-tar = 65/ 2
+tar = (btcNow * ha) / 4;
 setTimeout(function(){
 restClient.buy('BTC-PERPETUAL', tar, lb).then((result) => {
 buying = lb;
