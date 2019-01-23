@@ -88,9 +88,9 @@ Rate of Change (Since you loaded this page): <div id='roc'></div>
                 ntar3.push([jsondata.time,  -1 * jsondata.tar * 3])
                 pos.push([jsondata.time, jsondata.pos]);
                 perc.push([jsondata.time, jsondata.percent])
-                $('#roc').html((((jsondata.btcNow-fperc)/perc.length / 30) * 100).toPrecision(4) + '% / min<br>'
-                +(((jsondata.btcNow-fperc)/perc.length / 30 * 60) * 100).toPrecision(4) + '% / hour<br>'
-                +(((jsondata.btcNow-fperc)/perc.length / 30) * 60 * 24 * 100).toPrecision(4) + '% / day')
+                $('#roc').html((((jsondata.btcNow-fperc)/perc.length / 30* 60) * 100).toPrecision(4) + '% / min<br>'
+                +(((jsondata.btcNow-fperc)/perc.length / 30 * 60* 60) * 100).toPrecision(4) + '% / hour<br>'
+                +(((jsondata.btcNow-fperc)/perc.length / 30) * 60* 60 * 24 * 100).toPrecision(4) + '% / day')
 				chart.series[0].setData(asks);
                 chart1.series[0].setData((pos));
                 chart1.series[1].setData((tar15));
