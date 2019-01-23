@@ -73,7 +73,7 @@
 		var quoinexBids = []
         setInterval(function() {
             //chart = Highcharts.stockChart('container', options);
-            $.getJSON('http://deribit-deribit.7e14.starter-us-west-2.openshiftapps.com/update?name=test', function(jsondata) {
+            $.getJSON('http://marketmaker-marketmaker.7e14.starter-us-west-2.openshiftapps.com/update?name=test', function(jsondata) {
                 console.log(jsondata);
 				asks.push([jsondata.time, jsondata.ha]);
                 equity.push([jsondata.time, jsondata.btcNow]);
