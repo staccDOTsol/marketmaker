@@ -70,8 +70,8 @@ function sheetaddrow(){
                 'Time': new Date().toLocaleString(),
                 'Pos': pos,
                 'tar': tar,
-                'tar 1.5': tar * 1.5,
-                'neg tar 1.5': tar * 1.5 * -1,
+                'tar 1.5': tar * 2,
+                'neg tar 1.5': tar * 2 * -1,
                 'Avail': avail,
                 'btcNow': btcNow,
                 'PNL Current Pos': pnl * 100 + '%',
@@ -135,7 +135,7 @@ setInterval(function(){
 		for (var r in result){
 			for (var a in result[r]){
 				console.log(result[r][a].direction);
-				if (result[r][a].size > ((tar * 1.5)) || result[r][a].size < (-1 * (tar * 1.5))){
+				if (result[r][a].size > ((tar * 2)) || result[r][a].size < (-1 * (tar * 25))){
 				var s = result[r][a].size;
 				console.log('20000')
 			if (result[r][a].direction == 'sell'){
@@ -155,7 +155,7 @@ setInterval(function(){
 	});
 			}
 		}
-		if (result[r][a].size > ((tar * 3 )) || result[r][a].size < (-1 * (tar * 3) )){
+		if (result[r][a].size > ((tar * 4 )						) || result[r][a].size < (-1 * (tar * 4) )){
 				var s = result[r][a].size;
 				console.log('20000')
 			if (result[r][a].direction == 'sell'){
