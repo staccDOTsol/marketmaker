@@ -83,6 +83,7 @@
                 ntar15.push([jsondata.time,  -1 * jsondata.tar * 1.5])
                 pos.push([jsondata.time, jsondata.pos]);
                 perc.push([jsondata.time, jsondata.percent])
+                derivs.push([jsondata.time, (perc[perc.length-1]-perc[0])/perc[perc.length-1]*100.0;])
 				chart.series[0].setData(asks);
                 chart1.series[0].setData((pos));
                 chart1.series[1].setData((tar15));
