@@ -40,7 +40,7 @@
 <script src="https://code.highcharts.com/stock/highstock.js"></script>
 <script src="https://code.highcharts.com/stock/modules/exporting.js"></script>
 <script src="https://code.highcharts.com/stock/modules/export-data.js"></script>
-
+Rate of Change: <div id='roc'></div>
 <div id="container4" style="height: 500px; min-width: 310px"></div>
 <div id="container" style="height: 500px; min-width: 310px"></div>
 <div id="container1" style="height: 500px; min-width: 310px"></div>
@@ -48,10 +48,6 @@
 <div id="container3" style="height: 500px; min-width: 310px"></div><!--
 <div id="chartdiv" style="height: 400px; min-width: 310px"></div>-->
 
-<form action="/" method="POST">
-    <input type="text" id="Input" name="Input" value="Search" />
-    <input type="submit">
-</form>
 <script>
 
     var prices = [];
@@ -63,9 +59,13 @@
         var avail = []
         var tar15 = []
         var ntar15 = []
+        var tar3 = []
+        var ntar3 = []
         var equity = []
         var perc = []
         var derivs = []
+        var first = true
+        var fperc;
     $(document).ready(function() {
         console.log("ready!");
 		var quoinexAsks = []
@@ -74,18 +74,28 @@
             //chart = Highcharts.stockChart('container', options);
             $.getJSON('http://marketmaker-marketmaker.7e14.starter-us-west-2.openshiftapps.com/update?name=test', function(jsondata) {
                 console.log(jsondata);
+                if (first == true){
+                first = false;
+                fperc = jsondata.percent;
+                }
 				asks.push([jsondata.time, jsondata.ha]);
                 equity.push([jsondata.time, jsondata.btcNow]);
                 avail.push([jsondata.time, jsondata.avail]);
                 tar.push([jsondata.time, jsondata.tar]);
                 tar15.push([jsondata.time, jsondata.tar * 1.5])
+                tar3.push([jsondata.time, jsondata.tar * 3])
                 ntar15.push([jsondata.time,  -1 * jsondata.tar * 1.5])
+                ntar3.push([jsondata.time,  -1 * jsondata.tar * 3])
                 pos.push([jsondata.time, jsondata.pos]);
                 perc.push([jsondata.time, jsondata.percent])
+                $('#roc').html(((jsondata.percent-fperc)/jsondata.percent*100.0).toPrecision(4) + '%');
+                console.log((jsondata.percent-fperc)/jsondata.percent*100.0);
 				chart.series[0].setData(asks);
                 chart1.series[0].setData((pos));
                 chart1.series[1].setData((tar15));
                 chart1.series[2].setData((ntar15));
+                chart1.series[3].setData((tar3));
+                chart1.series[4].setData((ntar3));
 				chart2.series[0].setData((tar));
                 chart3.series[0].setData((equity));
                 chart3.series[1].setData((avail));
@@ -242,6 +252,16 @@
                 name: 'Lower Threshold',
                 data: tar15,
                 color: '#0000FF'
+            },
+            {
+                name: 'Higher Threshold',
+                data: tar3,
+                color: '#FF0000'
+            },
+            {
+                name: 'Higher Threshold',
+                data: ntar3,
+                color: '#FF0000'
             }
         ]
     }
