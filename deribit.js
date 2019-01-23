@@ -120,7 +120,7 @@ setInterval(function(){
 		}
 	});
 		}
-}, 3500)
+}, 1500)
 setInterval(function(){
 	if (oldPerc != 0){
 		if (-1*(100*(1-( btcNow / startBtc) )).toPrecision(4) - oldPerc < -0.015){
@@ -179,7 +179,7 @@ restClient.positions().then((result) => {
 			for (var a in result[r]){
   pnl = result[r][a].profitLoss;
 				if(result[r][a].profitLoss < -0.030 ){
-					liq = 'post < 3%'
+					liq = 'pos < 3%'
 			if (result[r][a].direction == 'sell'){
 				restClient.buy(result[r][a].instrument, -1 * result[r][a].size, ha, 'safe').then((result) => {
 					});
@@ -191,7 +191,7 @@ restClient.positions().then((result) => {
 		}
 		}
 	});
-}, 2000)
+}, 1500)
 var avail;
 setInterval(function(){
 
@@ -270,7 +270,7 @@ setInterval(function(){
 		}
 	});
 
-}, 10000);
+}, 2500);
 setInterval(function(){
 	restClient.getopenorders('BTC-PERPETUAL').then((result) => {
 	var go = true;
