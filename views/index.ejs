@@ -42,7 +42,6 @@
 <script src="https://code.highcharts.com/stock/modules/export-data.js"></script>
 
 <div id="container4" style="height: 500px; min-width: 310px"></div>
-<div id="container5" style="height: 500px; min-width: 310px"></div>
 <div id="container" style="height: 500px; min-width: 310px"></div>
 <div id="container1" style="height: 500px; min-width: 310px"></div>
 <div id="container2" style="height: 500px; min-width: 310px"></div>
@@ -83,7 +82,6 @@
                 ntar15.push([jsondata.time,  -1 * jsondata.tar * 1.5])
                 pos.push([jsondata.time, jsondata.pos]);
                 perc.push([jsondata.time, jsondata.percent])
-                derivs.push([jsondata.time, (perc[perc.length-1]-perc[0])/perc[perc.length-1]*100.0])
 				chart.series[0].setData(asks);
                 chart1.series[0].setData((pos));
                 chart1.series[1].setData((tar15));
@@ -92,7 +90,6 @@
                 chart3.series[0].setData((equity));
                 chart3.series[1].setData((avail));
                 chart4.series[0].setData((perc));
-                chart5.series[0].setData((derivs));
 				console.log(jsondata.trades14);
                // chart = Highcharts.stockChart('container', options);
             });
@@ -313,70 +310,6 @@
             }
         ]
     }
-
-    var options5 = {
-
-
-
-        rangeSelector: {
-            buttons: [{
-                count: 1,
-                type: 'minute',
-                text: '1m'
-            }, {
-                count: 5,
-                type: 'minute',
-                text: '5m'
-            }, {
-                count: 7,
-                type: 'minute',
-                text: '7m'
-            }, {
-                count: 14,
-                type: 'minute',
-                text: '14m'
-            }, {
-                count: 1,
-                type: 'hour',
-                text: '1h'
-            }, {
-                type: 'all',
-                text: 'All'
-            }],
-            inputEnabled: false,
-            selected: 0
-        },
-
-
-        title: {
-            text: 'Rate of Change'
-        },
-
-
-        yAxis: [{
-            labels: {
-                align: 'right',
-                x: -3
-            },
-            title: {
-                text: 'Rate of Change'
-            },
-            height: '100%',
-            lineWidth: 2,
-            resize: {
-                enabled: true
-            }
-        }],
-
-        tooltip: {
-            split: true
-        },
-        series: [{
-                name: 'Rate of Change (last 600 percs)',
-                color: '#00FF00'
-            }
-        ]
-    }
     var options4 = {
 
 
@@ -510,7 +443,6 @@
         ]
     }
             var chart4 = Highcharts.stockChart('container4', options4);
-            var chart5 = Highcharts.stockChart('container5', options5);
             var chart = Highcharts.stockChart('container', options);
             var chart1 = Highcharts.stockChart('container1', options1);
             var chart2 = Highcharts.stockChart('container2', options2);
