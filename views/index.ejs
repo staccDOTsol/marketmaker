@@ -82,6 +82,14 @@
                 ntar15.push([jsondata.time,  -1 * jsondata.tar * 1.5])
                 pos.push([jsondata.time, jsondata.pos]);
                 perc.push([jsondata.time, jsondata.percent])
+                    asks = asks.splice(0, arr.length - 600);
+                    equity = equity.splice(0, arr.length - 600);
+                    avail = avail.splice(0, arr.length - 600);
+                    tar = tar.splice(0, arr.length - 600);
+                    tar15 = tar15.splice(0, arr.length - 600);
+                    ntar15 = ntar15.splice(0, arr.length - 600);
+                    pos = pos.splice(0, arr.length - 600);
+                    perc = perc.splice(0, arr.length - 600);
                 /* difference: btcNow - avail,
                     btcNow: btcNow,
                     avail: avail,
@@ -105,11 +113,12 @@
                        deriv += y[i] * coefficient[i]
                     deriv /= (12 * h)
                     derivs.push(deriv);
+                    derivs = derivs.splice(0, arr.length - 600);
                 chart5.series[0].setData((derivs));
 				console.log(jsondata.trades14);
                // chart = Highcharts.stockChart('container', options);
             });
-        }, 500);
+        }, 2000);
     });
 
     var trade = [],
