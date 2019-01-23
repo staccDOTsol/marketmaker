@@ -135,7 +135,7 @@ setInterval(function(){
 		for (var r in result){
 			for (var a in result[r]){
 				console.log(result[r][a].direction);
-				if (result[r][a].size > ((tar * 1.5 * 3) / 2) || result[r][a].size < (-1 * (tar * 1.5 * 3) / 2)){
+				if (result[r][a].size > ((tar * 1.5)) || result[r][a].size < (-1 * (tar * 1.5))){
 				var s = result[r][a].size;
 				console.log('20000')
 			if (result[r][a].direction == 'sell'){
@@ -155,7 +155,7 @@ setInterval(function(){
 	});
 			}
 		}
-		if (result[r][a].size > ((tar * 3 * 3) / 2) || result[r][a].size < (-1 * (tar * 3 * 3) / 2)){
+		if (result[r][a].size > ((tar * 3 )) || result[r][a].size < (-1 * (tar * 3) )){
 				var s = result[r][a].size;
 				console.log('20000')
 			if (result[r][a].direction == 'sell'){
