@@ -41,6 +41,8 @@
 <script src="https://code.highcharts.com/stock/modules/exporting.js"></script>
 <script src="https://code.highcharts.com/stock/modules/export-data.js"></script>
 
+<div id="container4" style="height: 500px; min-width: 310px"></div>
+<div id="container5" style="height: 500px; min-width: 310px"></div>
 <div id="container" style="height: 500px; min-width: 310px"></div>
 <div id="container1" style="height: 500px; min-width: 310px"></div>
 <div id="container2" style="height: 500px; min-width: 310px"></div>
@@ -67,6 +69,7 @@
         console.log("ready!");
 		var quoinexAsks = []
 		var quoinexBids = []
+        var perc = []
         setInterval(function() {
             //chart = Highcharts.stockChart('container', options);
             $.getJSON('http://deribit-deribit.7e14.starter-us-west-2.openshiftapps.com/update?name=test', function(jsondata) {
@@ -78,6 +81,7 @@
                 tar15.push([jsondata.time, jsondata.tar * 1.5])
                 ntar15.push([jsondata.time,  -1 * jsondata.tar * 1.5])
                 pos.push([jsondata.time, jsondata.pos]);
+                perc.push([jsondata.time, jsondata.percent])
                 /* difference: btcNow - avail,
                     btcNow: btcNow,
                     avail: avail,
@@ -92,6 +96,16 @@
 				chart2.series[0].setData((tar));
                 chart3.series[0].setData((equity));
                 chart3.series[1].setData((avail));
+                chart4.series[0].setData((perc));
+                    deriv = 0
+                    coefficient = perc
+                    N = perc.length # points
+                    h = 1 # second
+                    for i range(0,N):
+                       deriv += y[i] * coefficient[i]
+                    deriv /= (12 * h)
+                    derivs.push(deriv);
+                chart5.series[0].setData((derivs));
 				console.log(jsondata.trades14);
                // chart = Highcharts.stockChart('container', options);
             });
@@ -137,8 +151,7 @@
                 text: 'All'
             }],
             inputEnabled: false,
-            selected: 0,
-            allButtonsEnabled: true 
+            selected: 0
         },
 
 
@@ -204,8 +217,7 @@
                 text: 'All'
             }],
             inputEnabled: false,
-            selected: 0,
-            allButtonsEnabled: true         
+            selected: 0  
         },
 
 
@@ -280,8 +292,7 @@
                 text: 'All'
             }],
             inputEnabled: false,
-            selected: 0,
-            allButtonsEnabled: true 
+            selected: 0
         },
 
 
@@ -316,6 +327,134 @@
         ]
     }
 
+    var options5 = {
+
+
+
+        rangeSelector: {
+            buttons: [{
+                count: 1,
+                type: 'minute',
+                text: '1m'
+            }, {
+                count: 5,
+                type: 'minute',
+                text: '5m'
+            }, {
+                count: 7,
+                type: 'minute',
+                text: '7m'
+            }, {
+                count: 14,
+                type: 'minute',
+                text: '14m'
+            }, {
+                count: 1,
+                type: 'hour',
+                text: '1h'
+            }, {
+                type: 'all',
+                text: 'All'
+            }],
+            inputEnabled: false,
+            selected: 0
+        },
+
+
+        title: {
+            text: 'Percent'
+        },
+
+
+        yAxis: [{
+            labels: {
+                align: 'right',
+                x: -3
+            },
+            title: {
+                text: 'Rate of Change'
+            },
+            height: '100%',
+            lineWidth: 2,
+            resize: {
+                enabled: true
+            }
+        }],
+
+        tooltip: {
+            split: true
+        },
+        series: [{
+                name: 'Rate of Change',
+                data: derivs,
+                color: '#00FF00'
+            }
+        ]
+    }
+    var options4 = {
+
+
+
+        rangeSelector: {
+            buttons: [{
+                count: 1,
+                type: 'minute',
+                text: '1m'
+            }, {
+                count: 5,
+                type: 'minute',
+                text: '5m'
+            }, {
+                count: 7,
+                type: 'minute',
+                text: '7m'
+            }, {
+                count: 14,
+                type: 'minute',
+                text: '14m'
+            }, {
+                count: 1,
+                type: 'hour',
+                text: '1h'
+            }, {
+                type: 'all',
+                text: 'All'
+            }],
+            inputEnabled: false,
+            selected: 0
+        },
+
+
+        title: {
+            text: 'Percent'
+        },
+
+
+        yAxis: [{
+            labels: {
+                align: 'right',
+                x: -3
+            },
+            title: {
+                text: 'Percent'
+            },
+            height: '100%',
+            lineWidth: 2,
+            resize: {
+                enabled: true
+            }
+        }],
+
+        tooltip: {
+            split: true
+        },
+        series: [{
+                name: 'Percent Growth',
+                data: perc,
+                color: '#00FF00'
+            }
+        ]
+    }
     var options3 = {
 
 
@@ -346,8 +485,7 @@
                 text: 'All'
             }],
             inputEnabled: false,
-            selected: 0,
-            allButtonsEnabled: true 
+            selected: 0
         },
 
 
@@ -385,6 +523,8 @@
             }
         ]
     }
+            var chart4 = Highcharts.stockChart('container4', options4);
+            var chart5 = Highcharts.stockChart('container5', options5);
             var chart = Highcharts.stockChart('container', options);
             var chart1 = Highcharts.stockChart('container1', options1);
             var chart2 = Highcharts.stockChart('container2', options2);
