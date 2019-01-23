@@ -40,7 +40,7 @@
 <script src="https://code.highcharts.com/stock/highstock.js"></script>
 <script src="https://code.highcharts.com/stock/modules/exporting.js"></script>
 <script src="https://code.highcharts.com/stock/modules/export-data.js"></script>
-Rate of Change: <div id='roc'></div>
+Rate of Change (Since you loaded this page): <div id='roc'></div>
 <div id="container4" style="height: 500px; min-width: 310px"></div>
 <div id="container" style="height: 500px; min-width: 310px"></div>
 <div id="container1" style="height: 500px; min-width: 310px"></div>
@@ -76,7 +76,7 @@ Rate of Change: <div id='roc'></div>
                 console.log(jsondata);
                 if (first == true){
                 first = false;
-                fperc = jsondata.percent;
+                fperc = jsondata.equity;
                 }
 				asks.push([jsondata.time, jsondata.ha]);
                 equity.push([jsondata.time, jsondata.btcNow]);
@@ -88,9 +88,9 @@ Rate of Change: <div id='roc'></div>
                 ntar3.push([jsondata.time,  -1 * jsondata.tar * 3])
                 pos.push([jsondata.time, jsondata.pos]);
                 perc.push([jsondata.time, jsondata.percent])
-                $('#roc').html((((jsondata.percent-fperc)/perc.length / 30) * 100).toPrecision(4) + '% / min<br>'
-                +(((jsondata.percent-fperc)/perc.length / 30 * 60) * 100).toPrecision(4) + '% / hour<br>'
-                +(((jsondata.percent-fperc)/perc.length / 30) * 60 * 24 * 100).toPrecision(4) + '% / day')
+                $('#roc').html((((jsondata.equity-fperc)/perc.length / 30) * 100).toPrecision(4) + '% / min<br>'
+                +(((jsondata.equity-fperc)/perc.length / 30 * 60) * 100).toPrecision(4) + '% / hour<br>'
+                +(((jsondata.equity-fperc)/perc.length / 30) * 60 * 24 * 100).toPrecision(4) + '% / day')
 				chart.series[0].setData(asks);
                 chart1.series[0].setData((pos));
                 chart1.series[1].setData((tar15));
