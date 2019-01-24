@@ -128,6 +128,17 @@ setInterval(function(){
 	var c = 0;
 	for (var a in result){	
 for (var o in result[a]){
+	if(result[a][o].direction == 'buy' && result[a][o].price != lb){
+		restClient.cancel(result[a][o].orderId).then((result) => {
+console.log(result);
+		});
+	}
+	if(result[a][o].direction == 'sell' && result[a][o].price != ha){
+		restClient.cancel(result[a][o].orderId).then((result) => {
+console.log(result);
+		});
+	}
+	
 c++;
 }
 }
@@ -139,11 +150,7 @@ restClient.cancelall().then((result) => {
 })
 }, 5000)
 
-setInterval(function(){
-restClient.cancelall().then((result) => {
 
-});
-	}, 60000);
 var liq;
 function sheetaddrow(){
 	console.log('addrow')
