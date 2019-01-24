@@ -322,7 +322,7 @@ for (var o in result[a]){
 		}
 	});
 if (go){
-	tar = tar + 750;
+	tar = tar + btcNow * 500;
 	if (gogoFour < 4){
 		gogoFour++;
 		restClient.sell('BTC-PERPETUAL', tar, ha).then((result) => {
