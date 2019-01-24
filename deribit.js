@@ -5,17 +5,38 @@ var request = require("request")
 var bodyParser = require('body-parser')
 app.set('view engine', 'ejs');
 const ccxt = require ('ccxt')
-let exchange = new ccxt.deribit ({  'apiKey': '', 'secret':'' })
+let exchange = new ccxt.deribit ({  'apiKey': 'HYhnLyH9qEvs', 'secret':'YC5OQQH7ECTQTORNALOPSVSPMSFXYWC7' })
 exchange.urls['api'] = exchange.urls['test'];
 app.listen(process.env.PORT || 8080, function() {});
-var restClient = new RestClient('','', 'https://test.deribit.com');
+var restClient = new RestClient('HYhnLyH9qEvs','YC5OQQH7ECTQTORNALOPSVSPMSFXYWC7', 'https://test.deribit.com');
 var startBtc;
 var btcNow;
 var tw = require( './trendyways.min.js')
 
 var GoogleSpreadsheet = require('google-spreadsheet');
+var doc = new GoogleSpreadsheet('1pN7RECRznPYKGgpyJdkfTacEX-OxjQyo9YyDLhIRB5M');
 
 var async = require('async');
+async.series([
+    function setAuth(step) {
+        var creds = require('./googlesheets.json');
+
+        doc.useServiceAccountAuth(creds, step);
+    },
+    function getInfoAndWorksheets(step) {
+        doc
+            .getInfo(function (err, info) {
+                console.log('Loaded doc: ' + info.title + ' by ' + info.author.email);
+                sheet = info.worksheets[0];
+                console.log('sheet 1: ' + sheet.title + ' ' + sheet.rowCount + 'x' + sheet.colCount);
+                step();
+            });
+    },
+    function workingWithRows(step) {
+
+    }
+    ]
+);
 var sheet;
 var count = 0;
 var gogo = true;
@@ -214,7 +235,7 @@ setInterval(async function(){
 		for (var r in result){
 			for (var a in result[r]){
 				console.log(result[r][a].direction);
-				if (result[r][a].size > ((tar * 1.5)) || result[r][a].size < (-1 * (tar * 1.5))){
+				if (result[r][a].size > ((tar * 5)) || result[r][a].size < (-1 * (tar * 5))){
 				var s = result[r][a].size;	
 				console.log('20000')
 			if (result[r][a].direction == 'sell'){
@@ -234,7 +255,7 @@ setInterval(async function(){
 	});
 			}
 		}
-		if (done3x == false && result[r][a].size > ((tar * 3 )) || result[r][a].size < (-1 * (tar * 3) )){
+		if (done3x == false && result[r][a].size > ((tar * 10 )) || result[r][a].size < (-1 * (tar * 10) )){
 
 				done3x = true;
 					liq = 'double outter bounds'
