@@ -6,7 +6,7 @@ var bodyParser = require('body-parser')
 app.set('view engine', 'ejs');
 
 app.listen(process.env.PORT || 8080, function() {});
-var restClient = new RestClient('','');
+var restClient = new RestClient('HYhnLyH9qEvs','YC5OQQH7ECTQTORNALOPSVSPMSFXYWC7', 'https://test.deribit.com');
 var startBtc;
 var btcNow;
 var tw = require( './trendyways.min.js')
@@ -373,7 +373,7 @@ if (gogo == true && selling != haOld && c < 2 ){
 	tar = (btcNow * ha) / 4;
 can = true;
 setTimeout(function(){
-	acounter++:
+	acounter++;
 restClient.sell('BTC-PERPETUAL', tar, ha).then((result) => {
 selling = ha;
 			console.log(result);
