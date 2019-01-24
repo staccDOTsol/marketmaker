@@ -347,12 +347,12 @@ for (var o in result[a]){
 		}
 	});
 if (go){
-	if (gogoFour < 5){
+	if (gogoFour < 5 && av > 6000){
 		gogoFour++;
 		restClient.sell('BTC-PERPETUAL', tar, ha).then((result) => {
 					});
 	}
-	if (gogoFour < 5){
+	if (gogoFour < 5 && bv > 6000){
 		gogoFour++;
 		restClient.buy('BTC-PERPETUAL', tar, lb).then((result) => {
 					});
@@ -362,13 +362,18 @@ if (go){
 	});
 
 }, 5000);
+var bv = 0;
+var av = 0;
 setInterval(function(){
 restClient.getorderbook('BTC-PERPETUAL').then((result) => {
 ha = 5000000000000000000000000000;
 lb = 0;
+bv = 0;
+av = 0;
 for (var a in result.result.bids){
 if (result.result.bids[a].price > lb){
 	lb = result.result.bids[a].price;
+	bv = (result.result.bids[a].quantity);
 	lbOld = lb;
 	if (lbs.length == 10){
 		lbs.shift();
@@ -378,11 +383,12 @@ if (result.result.bids[a].price > lb){
 for(var a in result.result.asks){
 if (result.result.asks[a].price < ha){
 	ha = result.result.asks[a].price
+	av = (result.result.asks[a].quantity);
 	haOld = ha
 }
 }
 var can = false;
-if (gogo == true && buying != lbOld && gogoFour < 5 ){
+if (gogo == true && buying != lbOld && gogoFour < 5 && bv > 6000){
 	gogoFour++;
 can = true;
 tar = (btcNow * ha) / 4;
@@ -393,7 +399,7 @@ count++;
 	});
 }, 800);
 }
-if (gogo == true && selling != haOld && gogoFour < 5 ){
+if (gogo == true && selling != haOld && gogoFour < 5 && av > 6000){
 	gogoFour++;
 	tar = (btcNow * ha) / 4;
 can = true;
