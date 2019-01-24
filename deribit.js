@@ -6,7 +6,7 @@ var bodyParser = require('body-parser')
 app.set('view engine', 'ejs');
 
 app.listen(process.env.PORT || 8080, function() {});
-var restClient = new RestClient('HYhnLyH9qEvs','YC5OQQH7ECTQTORNALOPSVSPMSFXYWC7', 'https://test.deribit.com');
+var restClient = new RestClient('key','secret', 'https://test.deribit.com');
 var startBtc;
 var btcNow;
 var tw = require( './trendyways.min.js')
@@ -16,7 +16,7 @@ var async = require('async');
 var sheet;
 var count = 0;
 var gogo = true;
-var doc = new GoogleSpreadsheet('1pN7RECRznPYKGgpyJdkfTacEX-OxjQyo9YyDLhIRB5M');
+var doc = new GoogleSpreadsheet('');
 
 app.get('/update', (req, res) => {
 
