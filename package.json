@@ -6,6 +6,7 @@
   "bundleDependencies": false,
   "dependencies": {
     "body-parser": "^1.18.3",
+    "ccxt": "^1.18.148",
     "deribit-api": "*",
     "ejs": "^2.6.1",
     "express": "^4.16.4",
