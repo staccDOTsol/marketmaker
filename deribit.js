@@ -235,7 +235,7 @@ setInterval(async function(){
 		for (var r in result){
 			for (var a in result[r]){
 				console.log(result[r][a].direction);
-				if (result[r][a].size > ((tar * 5)) || result[r][a].size < (-1 * (tar * 5))){
+				if (result[r][a].size > ((tar * 1.5)) || result[r][a].size < (-1 * (tar * 1.5))){
 				var s = result[r][a].size;	
 				console.log('20000')
 			if (result[r][a].direction == 'sell'){
@@ -255,23 +255,24 @@ setInterval(async function(){
 	});
 			}
 		}
-		if (done3x == false && result[r][a].size > ((tar * 10 )) || result[r][a].size < (-1 * (tar * 10) )){
-
-				done3x = true;
+		if (done3x == false result[r][a].size > ((tar * 3 )						) || result[r][a].size < (-1 * (tar * 3) )){
+done3x = true;
 					liq = 'double outter bounds'
 				var s = result[r][a].size;
 				console.log('20000')
 			if (result[r][a].direction == 'sell'){
 				console.log('buybuy')
-				restClient.cancelall().then((result) => {
-				buy(-1 *Math.floor(s/3))
+		restClient.buy('BTC-PERPETUAL',  -1 *Math.floor(s/2), lb).then((result) => {
+			console.log(result);
 			console.log(result);
 					});
 			} else {
 				console.log('sellsell')
-				restClient.cancelall().then((result) => {
-		sell(Math.floor(s/2))
-	});
+		restClient.sell('BTC-PERPETUAL', Math.floor(s/2), ha).then((result) => {
+			console.log(result);
+					});
+			}
+		}
 			}
 		} else {
 			done3x = false;
