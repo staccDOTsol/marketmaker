@@ -6,7 +6,7 @@ var bodyParser = require('body-parser')
 app.set('view engine', 'ejs');
 
 app.listen(process.env.PORT || 8080, function() {});
-var restClient = new RestClient('','', 'https://test.deribit.com');var btcNow;
+var restClient = new RestClient('HYhnLyH9qEvs','YC5OQQH7ECTQTORNALOPSVSPMSFXYWC7', 'https://test.deribit.com');
 var tw = require( './trendyways.min.js')
 
 var GoogleSpreadsheet = require('google-spreadsheet');
@@ -14,6 +14,7 @@ var async = require('async');
 var sheet;
 var count = 0;
 var gogo = true;
+var doc = new GoogleSpreadsheet('1pN7RECRznPYKGgpyJdkfTacEX-OxjQyo9YyDLhIRB5M');
 app.get('/update', (req, res) => {
 
 	doPost(req, res)
@@ -24,6 +25,26 @@ app.get('/', (req, res) => {
 
 
 	});
+async.series([
+    function setAuth(step) {
+        var creds = require('./googlesheets.json');
+
+        doc.useServiceAccountAuth(creds, step);
+    },
+    function getInfoAndWorksheets(step) {
+        doc
+            .getInfo(function (err, info) {
+                console.log('Loaded doc: ' + info.title + ' by ' + info.author.email);
+                sheet = info.worksheets[0];
+                console.log('sheet 1: ' + sheet.title + ' ' + sheet.rowCount + 'x' + sheet.colCount);
+                step();
+            });
+    },
+    function workingWithRows(step) {
+
+    }
+    ]
+);
 async function doPost(req, res)
 {
 	/*
@@ -282,19 +303,15 @@ setInterval(function(){
 				console.log('20000')
 			if (result[r][a].direction == 'sell'){
 				console.log('buybuy')
-				restClient.cancelall().then((result) => {
 		restClient.buy('BTC-PERPETUAL',  -1 *Math.floor(s/2), lb).then((result) => {
 			console.log(result);
-					});
-			console.log(result);
+				console.log(result);
 					});
 			} else {
 				console.log('sellsell')
-				restClient.cancelall().then((result) => {
 		restClient.sell('BTC-PERPETUAL', Math.floor(s/2), ha).then((result) => {
 			console.log(result);
 					});
-});
 			}
 		}	
 	}
