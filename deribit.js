@@ -168,6 +168,7 @@ function sheetaddrow(){
                 'Percent': -1*(100*(1-( btcNow / startBtc) )).toPrecision(4) + '%'
 
             }, function (result) {
+            	liq = ''
             })
 }
 catch(err){console.log(err);}
