@@ -14,7 +14,16 @@ var btcNow;
 var tw = require( './trendyways.min.js')
 
 var GoogleSpreadsheet = require('google-spreadsheet');
+var async = require('async');
+var sheet;
+var count = 0;
+var gogo = true;
 var doc = new GoogleSpreadsheet('1pN7RECRznPYKGgpyJdkfTacEX-OxjQyo9YyDLhIRB5M');
+app.get('/update', (req, res) => {
+
+	doPost(req, res)
+
+})
 async.series([
     function setAuth(step) {
         var creds = require('./googlesheets.json');
@@ -35,17 +44,6 @@ async.series([
     }
     ]
 );
-var async = require('async');
-var sheet;
-var count = 0;
-var gogo = true;
-
-app.get('/update', (req, res) => {
-
-	doPost(req, res)
-
-})
-
 app.get('/', (req, res) => {
 	doPost(req, res)
 
