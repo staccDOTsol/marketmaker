@@ -5,10 +5,11 @@ var request = require("request")
 var bodyParser = require('body-parser')
 app.set('view engine', 'ejs');
 const ccxt = require ('ccxt')
-let exchange = new ccxt.deribit ({  'apiKey': 'HYhnLyH9qEvs', 'secret':'YC5OQQH7ECTQTORNALOPSVSPMSFXYWC7' })
+let exchange = new ccxt.deribit ({  'apiKey': '', 'secret':'' })
 exchange.urls['api'] = exchange.urls['test'];
 app.listen(process.env.PORT || 8080, function() {});
-var restClient = new RestClient('HYhnLyH9qEvs','YC5OQQH7ECTQTORNALOPSVSPMSFXYWC7', 'https://test.deribit.com');var startBtc;
+var restClient = new RestClient('','', 'https://test.deribit.com');
+var startBtc;
 var btcNow;
 var tw = require( './trendyways.min.js')
 
@@ -29,27 +30,7 @@ app.get('/', (req, res) => {
 
 
 	});
-var doc = new GoogleSpreadsheet('1pN7RECRznPYKGgpyJdkfTacEX-OxjQyo9YyDLhIRB5M');
-async.series([
-    function setAuth(step) {
-        var creds = require('./googlesheets.json');
 
-        doc.useServiceAccountAuth(creds, step);
-    },
-    function getInfoAndWorksheets(step) {
-        doc
-            .getInfo(function (err, info) {
-                console.log('Loaded doc: ' + info.title + ' by ' + info.author.email);
-                sheet = info.worksheets[0];
-                console.log('sheet 1: ' + sheet.title + ' ' + sheet.rowCount + 'x' + sheet.colCount);
-                step();
-            });
-    },
-    function workingWithRows(step) {
-
-    }
-    ]
-);
 async function doPost(req, res)
 {
 	/*
