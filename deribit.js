@@ -221,7 +221,7 @@ setInterval(function(){
 		}
 	});
 }, 1000)
-setTimeout(function(){
+setInterval(function(){
 
 tar = (btcNow * ha) / 4;
 }, 1000)
@@ -304,7 +304,7 @@ for (var o in result[a]){
 		}
 	});
 if (go){
-	tar = tar + 0.001*equity;
+	tar = tar;
 		restClient.sell('BTC-PERPETUAL', tar, ha).then((result) => {
 			console.log(result);
 					});
