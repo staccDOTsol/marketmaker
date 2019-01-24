@@ -341,8 +341,6 @@ if (go && gogo){
 		restClient.sell('BTC-PERPETUAL', tar, ha).then((result) => {
 			console.log(result);
 					});
-			acounter++;
-			acounter++;
 		restClient.buy('BTC-PERPETUAL', tar, lb).then((result) => {
 			console.log(result);
 					});
