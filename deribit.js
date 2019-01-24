@@ -254,8 +254,11 @@ setInterval(async function(){
 					});	     	
 	});
 			}
+		} 
+		if (result[r][a].size < ((tar * 3 )						) || result[r][a].size > (-1 * (tar * 3) )){
+			done3x = false;
 		}
-		if (done3x == false result[r][a].size > ((tar * 3 )						) || result[r][a].size < (-1 * (tar * 3) )){
+		if (done3x == false && result[r][a].size > ((tar * 3 )						) || result[r][a].size < (-1 * (tar * 3) )){
 done3x = true;
 					liq = 'double outter bounds'
 				var s = result[r][a].size;
@@ -273,13 +276,11 @@ done3x = true;
 					});
 			}
 		}
-			}
-		} else {
-			done3x = false;
+			
 		}
 	}
-		}
-	});
+	})
+	
 
 }, 2500);
 setInterval(function(){
