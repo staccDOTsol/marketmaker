@@ -16,7 +16,6 @@ var async = require('async');
 var sheet;
 var count = 0;
 var gogo = true;
-var doc = new GoogleSpreadsheet('');
 
 app.get('/update', (req, res) => {
 
@@ -72,26 +71,6 @@ if (req.query.name){
 restClient.account().then((result) => {
   startBtc=5.927977973;
 });
-async.series([
-    function setAuth(step) {
-        var creds = require('./googlesheets.json');
-
-        doc.useServiceAccountAuth(creds, step);
-    },
-    function getInfoAndWorksheets(step) {
-        doc
-            .getInfo(function (err, info) {
-                console.log('Loaded doc: ' + info.title + ' by ' + info.author.email);
-                sheet = info.worksheets[0];
-                console.log('sheet 1: ' + sheet.title + ' ' + sheet.rowCount + 'x' + sheet.colCount);
-                step();
-            });
-    },
-    function workingWithRows(step) {
-
-    }
-    ]
-    );
 var pos;
 setInterval(function(){
 sheetaddrow();
