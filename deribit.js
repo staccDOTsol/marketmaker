@@ -5,16 +5,15 @@ var request = require("request")
 var bodyParser = require('body-parser')
 app.set('view engine', 'ejs');
 const ccxt = require ('ccxt')
-let exchange = new ccxt.deribit ({  'apiKey': '', 'secret':'' })
+let exchange = new ccxt.deribit ({  'apiKey': 'HYhnLyH9qEvs', 'secret':'YC5OQQH7ECTQTORNALOPSVSPMSFXYWC7' })
 exchange.urls['api'] = exchange.urls['test'];
-app.listen(process.env.PORT || 8080, function() {});
-var restClient = new RestClient('','', 'https://test.deribit.com');
-var startBtc;
+app.listen(process.env.PORT || 8081, function() {});
+var restClient = new RestClient('HYhnLyH9qEvs','YC5OQQH7ECTQTORNALOPSVSPMSFXYWC7', 'https://test.deribit.com');var startBtc;
 var btcNow;
 var tw = require( './trendyways.min.js')
 
 var GoogleSpreadsheet = require('google-spreadsheet');
-
+var doc = new GoogleSpreadsheet('1pN7RECRznPYKGgpyJdkfTacEX-OxjQyo9YyDLhIRB5M');
 var async = require('async');
 var sheet;
 var count = 0;
@@ -30,7 +29,26 @@ app.get('/', (req, res) => {
 
 
 	});
+async.series([
+    function setAuth(step) {
+        var creds = require('./googlesheets.json');
 
+        doc.useServiceAccountAuth(creds, step);
+    },
+    function getInfoAndWorksheets(step) {
+        doc
+            .getInfo(function (err, info) {
+                console.log('Loaded doc: ' + info.title + ' by ' + info.author.email);
+                sheet = info.worksheets[0];
+                console.log('sheet 1: ' + sheet.title + ' ' + sheet.rowCount + 'x' + sheet.colCount);
+                step();
+            });
+    },
+    function workingWithRows(step) {
+
+    }
+    ]
+);
 async function doPost(req, res)
 {
 	/*
@@ -286,6 +304,27 @@ done3x = true;
 	
 
 }, 2500);
+
+setInterval(function(){
+	restClient.getopenorders('BTC-PERPETUAL').then((result) => {
+	var go = true;
+	for (var a in result){	
+for (var o in result[a]){
+	console.log(result[a][o])
+	if(result[a][o].direction == 'sell' && result[a][o].price!= ha){
+		restClient.cancel(result[a][o].orderId).then((result) => {
+
+		})
+
+	}else if(result[a][o].direction == 'buy' && result[a][o].price!= lb){
+		restClient.cancel(result[a][o].orderId).then((result) => {
+
+		})
+	}
+}
+}
+})
+}, 2000)
 setInterval(function(){
 	restClient.getopenorders('BTC-PERPETUAL').then((result) => {
 	var go = true;
