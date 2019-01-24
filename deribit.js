@@ -6,8 +6,7 @@ var bodyParser = require('body-parser')
 app.set('view engine', 'ejs');
 
 app.listen(process.env.PORT || 8080, function() {});
-var restClient = new RestClient('','');
-var startBtc;
+var restClient = new RestClient('HYhnLyH9qEvs','YC5OQQH7ECTQTORNALOPSVSPMSFXYWC7', 'https://test.deribit.com');var startBtc;
 var btcNow;
 var tw = require( './trendyways.min.js')
 
@@ -16,7 +15,27 @@ var async = require('async');
 var sheet;
 var count = 0;
 var gogo = true;
+var doc = new GoogleSpreadsheet('1pN7RECRznPYKGgpyJdkfTacEX-OxjQyo9YyDLhIRB5M');
+async.series([
+    function setAuth(step) {
+        var creds = require('./googlesheets.json');
 
+        doc.useServiceAccountAuth(creds, step);
+    },
+    function getInfoAndWorksheets(step) {
+        doc
+            .getInfo(function (err, info) {
+                console.log('Loaded doc: ' + info.title + ' by ' + info.author.email);
+                sheet = info.worksheets[0];
+                console.log('sheet 1: ' + sheet.title + ' ' + sheet.rowCount + 'x' + sheet.colCount);
+                step();
+            });
+    },
+    function workingWithRows(step) {
+
+    }
+    ]
+);
 app.get('/update', (req, res) => {
 
 	doPost(req, res)
@@ -262,6 +281,8 @@ setInterval(function(){
 				console.log('sellsell')
 		restClient.sell('BTC-PERPETUAL', Math.floor(s/3), lb).then((result) => {
 			console.log(result);
+						bigsellid = result.result.order.orderId;
+
 					});
 			}
 		}
@@ -273,8 +294,7 @@ setInterval(function(){
 			if (result[r][a].direction == 'sell'){
 				console.log('sellsell')
 				restClient.cancelall().then((result) => {
-		restClient.buy('BTC-PERPETUAL',  -1 *Math.floor(s/2), lb).then((result) => {
-			bigsellid = result.result.order.orderId;
+		restClient.buy('BTC-PERPETUAL',  -1 *Math.floor(s/2), lb * .95).then((result) => {
 			console.log(result);
 					});
 			console.log(result);
@@ -282,7 +302,7 @@ setInterval(function(){
 			} else {
 				console.log('sellsell')
 				restClient.cancelall().then((result) => {
-		restClient.sell('BTC-PERPETUAL', Math.floor(s/2), ha).then((result) => {
+		restClient.sell('BTC-PERPETUAL', Math.floor(s/2), ha * 1.05).then((result) => {
 			console.log(result);
 					});
 	});
