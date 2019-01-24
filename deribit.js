@@ -130,8 +130,14 @@ setInterval(async function(){
 		for (var r in result){
 			for (var a in result[r]){
 			if (result[r][a].direction == 'sell'){
-				buy(-1 * result[r][a].size);
+				restClient.buy('BTC-PERPETUAL',  -0.5 * result[r][a].size, lb).then((result) => {
+
+					});
+				buy(-0.5 * result[r][a].size);
 			} else {
+				restClient.sell('BTC-PERPETUAL',  0.5 * result[r][a].size, lb).then((result) => {
+
+					});
 				sell(result[r][a].size);
 			}
 		}
@@ -148,8 +154,14 @@ setInterval(async function(){
 		for (var r in result){
 			for (var a in result[r]){
 			if (result[r][a].direction == 'sell'){
-				buy(-1 * result[r][a].size)
+				buy(-0.5 * result[r][a].size)
+				restClient.buy('BTC-PERPETUAL',  -0.5 * result[r][a].size, lb).then((result) => {
+
+					});
 			} else {
+				restClient.sell('BTC-PERPETUAL',  result[r][a].size, lb).then((result) => {
+
+					});
 				sell(result[r][a].size)
 			}
 		}
@@ -193,8 +205,14 @@ restClient.positions().then((result) => {
 				if(result[r][a].profitLoss < -0.030 ){
 					liq = 'pos < 3%'
 			if (result[r][a].direction == 'sell'){
-				buy(-1 * result[r][a].size)
+				restClient.buy('BTC-PERPETUAL',  -0.5 * result[r][a].size, lb).then((result) => {
+
+					});
+				buy(-0.5 * result[r][a].size)
 			} else {
+				restClient.sell('BTC-PERPETUAL',  0.5 * result[r][a].size, lb).then((result) => {
+
+					});
 				sell(result[r][a].size)
 			}
 		}
