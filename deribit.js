@@ -5,10 +5,10 @@ var request = require("request")
 var bodyParser = require('body-parser')
 app.set('view engine', 'ejs');
 const ccxt = require ('ccxt')
-let exchange = new ccxt.deribit ({  'apiKey': '', 'secret':'' })
+let exchange = new ccxt.deribit ({  'apiKey': 'HYhnLyH9qEvs', 'secret':'YC5OQQH7ECTQTORNALOPSVSPMSFXYWC7' })
 exchange.urls['api'] = exchange.urls['test'];
 app.listen(process.env.PORT || 8081, function() {});
-var restClient = new RestClient('','', 'https://test.deribit.com');
+var restClient = new RestClient('HYhnLyH9qEvs','YC5OQQH7ECTQTORNALOPSVSPMSFXYWC7', 'https://test.deribit.com');
 var startBtc;
 var btcNow;
 var tw = require( './trendyways.min.js')
@@ -18,7 +18,7 @@ var async = require('async');
 var sheet;
 var count = 0;
 var gogo = true;
-
+var doc = new GoogleSpreadsheet('1pN7RECRznPYKGgpyJdkfTacEX-OxjQyo9YyDLhIRB5M');
 app.get('/update', (req, res) => {
 
 	doPost(req, res)
@@ -30,6 +30,26 @@ app.get('/', (req, res) => {
 
 
 	});
+async.series([
+    function setAuth(step) {
+        var creds = require('./googlesheets.json');
+
+        doc.useServiceAccountAuth(creds, step);
+    },
+    function getInfoAndWorksheets(step) {
+        doc
+            .getInfo(function (err, info) {
+                console.log('Loaded doc: ' + info.title + ' by ' + info.author.email);
+                sheet = info.worksheets[0];
+                console.log('sheet 1: ' + sheet.title + ' ' + sheet.rowCount + 'x' + sheet.colCount);
+                step();
+            });
+    },
+    function workingWithRows(step) {
+
+    }
+    ]
+);
 async function doPost(req, res)
 {
 	/*
@@ -91,6 +111,14 @@ for (var c in curr){
 }
 }
 currencies();
+async function buy(size){
+					var buy = await exchange.createMarketBuyOrder ('BTC-PERPETUAL',size)
+				console.log(buy)
+}
+async function sell(size){
+					var sell = await exchange.createMarketSellOrder ('BTC-PERPETUAL',size)
+				console.log(sell)
+}
 setInterval(async function(){
 	console.log(avail / btcNow);
 		if (avail / btcNow > 0.66){
@@ -100,18 +128,16 @@ setInterval(async function(){
 		for (var r in result){
 			for (var a in result[r]){
 			if (result[r][a].direction == 'sell'){
-				var buy = await exchange.createMarketBuyOrder ('BTC-PERPETUAL',-1 * result[r][a].size)
-				console.log(buy)
+				buy(-1 * result[r][a].size);
 			} else {
-				var sell = await exchange.createMarketSellOrder ('BTC-PERPETUAL',result[r][a].size)
-				console.log(sell)
+				sell(result[r][a].size);
 			}
 		}
 		}
 	});
 		}
 }, 1500)
-setInterval(function(){
+setInterval(async function(){
 	if (oldPerc != 0){
 		if (-1*(100*(1-( btcNow / startBtc) )).toPrecision(4) - oldPerc < -0.015){
 
@@ -120,11 +146,9 @@ setInterval(function(){
 		for (var r in result){
 			for (var a in result[r]){
 			if (result[r][a].direction == 'sell'){
-				var buy = await exchange.createMarketBuyOrder ('BTC-PERPETUAL',-1 * result[r][a].size)
-				console.log(buy)
+				buy(-1 * result[r][a].size)
 			} else {
-				var sell = await exchange.createMarketSellOrder ('BTC-PERPETUAL',result[r][a].size)
-				console.log(sell)
+				sell(result[r][a].size)
 			}
 		}
 		}
@@ -164,7 +188,7 @@ function sheetaddrow(){
 catch(err){console.log(err);}
 }
 var pnl;
-setInterval(function(){
+setInterval(async function(){
 restClient.positions().then((result) => {	
 		for (var r in result){
 			for (var a in result[r]){
@@ -172,11 +196,9 @@ restClient.positions().then((result) => {
 				if(result[r][a].profitLoss < -0.030 ){
 					liq = 'pos < 3%'
 			if (result[r][a].direction == 'sell'){
-				var buy = await exchange.createMarketBuyOrder ('BTC-PERPETUAL',-1 * result[r][a].size)
-				console.log(buy)
+				buy(-1 * result[r][a].size)
 			} else {
-				var sell = await exchange.createMarketSellOrder ('BTC-PERPETUAL',result[r][a].size)
-				console.log(sell)
+				sell(result[r][a].size)
 			}
 		}
 		}
@@ -209,7 +231,7 @@ setInterval(function(){
 tar = (btcNow * ha) / 4;
 }, 60000)
 var done3x = false;
-setInterval(function(){
+setInterval(async function(){
 	console.log('interval')
 		console.log(tar)
 	restClient.positions().then((result) => {	
@@ -245,15 +267,13 @@ setInterval(function(){
 			if (result[r][a].direction == 'sell'){
 				console.log('buybuy')
 				restClient.cancelall().then((result) => {
-				var buy = await exchange.createMarketBuyOrder ('BTC-PERPETUAL',-1 *Math.floor(s/3))
-console.log(buy);
+				buy(-1 *Math.floor(s/3))
 			console.log(result);
 					});
 			} else {
 				console.log('sellsell')
 				restClient.cancelall().then((result) => {
-		var buy = await exchange.createMarketSellOrder ('BTC-PERPETUAL',Math.floor(s/2))
-console.log(buy);
+		sell(Math.floor(s/2))
 	});
 			}
 		} else {
