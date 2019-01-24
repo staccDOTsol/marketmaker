@@ -7,7 +7,7 @@ app.set('view engine', 'ejs');
 const ccxt = require ('ccxt')
 let exchange = new ccxt.deribit ({  'apiKey': 'HYhnLyH9qEvs', 'secret':'YC5OQQH7ECTQTORNALOPSVSPMSFXYWC7' })
 exchange.urls['api'] = exchange.urls['test'];
-app.listen(process.env.PORT || 8081, function() {});
+app.listen(process.env.PORT || 8080, function() {});
 var restClient = new RestClient('HYhnLyH9qEvs','YC5OQQH7ECTQTORNALOPSVSPMSFXYWC7', 'https://test.deribit.com');var startBtc;
 var btcNow;
 var tw = require( './trendyways.min.js')
