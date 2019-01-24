@@ -310,7 +310,7 @@ if (go){
 					});
 	}
 	if (gogoFour < 4){
-		gogoFour++''
+		gogoFour++;
 		restClient.buy('BTC-PERPETUAL', tar, lb).then((result) => {
 					});
 	
