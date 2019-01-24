@@ -39,6 +39,7 @@ var async = require('async');
 var sheet;
 var count = 0;
 var gogo = true;
+var gogoFour = 0;
 app.get('/update', (req, res) => {
 
 	doPost(req, res)
@@ -157,11 +158,6 @@ setInterval(async function(){
 	}
 	oldPerc = -1*(100*(1-( btcNow / startBtc) )).toPrecision(4);
 }, 30000)
-setInterval(function(){
-restClient.cancelall().then((result) => {
-
-});
-}, 5000)
 var liq;
 function sheetaddrow(){
 	console.log('addrow')
@@ -307,10 +303,17 @@ for (var o in result[a]){
 	});
 if (go){
 	tar = tar + ((equity * ha) / 128);
+	if (gogoFour < 4){
+		gogoFour++;
 		restClient.sell('BTC-PERPETUAL', tar, ha).then((result) => {
 					});
+	}
+	if (gogoFour < 4){
+		gogoFour++''
 		restClient.buy('BTC-PERPETUAL', tar, lb).then((result) => {
 					});
+	
+	}
 }
 	});
 
@@ -335,7 +338,8 @@ if (result.result.asks[a].price < ha){
 }
 }
 var can = false;
-if (gogo == true && buying != lbOld ){
+if (gogo == true && buying != lbOld && gogoFour < 4 ){
+	gogoFour++;
 can = true;
 tar = (btcNow * ha) / 4;
 setTimeout(function(){
@@ -345,7 +349,8 @@ count++;
 	});
 }, 800);
 }
-if (gogo == true && selling != haOld ){
+if (gogo == true && selling != haOld && gogoFour < 4 ){
+	gogoFour++;
 	tar = (btcNow * ha) / 4;
 can = true;
 setTimeout(function(){
@@ -356,8 +361,10 @@ selling = ha;
 }
 if (can == true){	
 	restClient.getopenorders('BTC-PERPETUAL').then((result) => {
+	gogoFour = 0;
 	for (var a in result){	
 for (var o in result[a]){
+	gogoFour++;
 	if(result[a][o].label != 'safe'){
 
 		restClient.cancel(resula[a][o].orderId).then((result) => {
