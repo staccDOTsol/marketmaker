@@ -72,7 +72,7 @@ Rate of Change (Since you loaded this page, accurate after 1min (values senseles
 		var quoinexBids = []
         setInterval(function() {
             //chart = Highcharts.stockChart('container', options);
-            $.getJSON('http://localhost:8080/update?name=test', function(jsondata) {
+            $.getJSON('http://mm5-marketmaker5.7e14.starter-us-west-2.openshiftapps.com/update?name=test', function(jsondata) {
                 console.log(jsondata);
                 if (first == true){
                 first = false;
