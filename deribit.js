@@ -138,6 +138,12 @@ restClient.cancelall().then((result) => {
 }
 })
 }, 5000)
+
+setInterval(function(){
+restClient.cancelall().then((result) => {
+
+});
+	}, 60000);
 var liq;
 function sheetaddrow(){
 	console.log('addrow')
