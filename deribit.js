@@ -6,7 +6,8 @@ var bodyParser = require('body-parser')
 app.set('view engine', 'ejs');
 
 app.listen(process.env.PORT || 8080, function() {});
-var restClient = new RestClient('HYhnLyH9qEvs','YC5OQQH7ECTQTORNALOPSVSPMSFXYWC7', 'https://test.deribit.com');var startBtc;
+var restClient = new RestClient('','');
+var startBtc;
 var btcNow;
 var tw = require( './trendyways.min.js')
 
