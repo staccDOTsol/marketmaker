@@ -122,7 +122,7 @@ async function sell(size){
 }
 setInterval(async function(){
 	console.log(avail / btcNow);
-		if (avail / btcNow > 0.66){
+		if (avail / btcNow < 0.55){
 
 					liq = 'margin > 66%'
 			restClient.positions().then((result) => {	
