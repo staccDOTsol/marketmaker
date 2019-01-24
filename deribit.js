@@ -16,6 +16,7 @@ var async = require('async');
 var sheet;
 var count = 0;
 var gogo = true;
+
 var doc = new GoogleSpreadsheet('1pN7RECRznPYKGgpyJdkfTacEX-OxjQyo9YyDLhIRB5M');
 async.series([
     function setAuth(step) {
@@ -89,7 +90,7 @@ if (req.query.name){
 }
 }
 restClient.account().then((result) => {
-  startBtc=0.001935979;
+  startBtc=6.150843771;
 });
 var pos;
 setInterval(function(){
