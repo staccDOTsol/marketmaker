@@ -82,10 +82,9 @@ var oldPerc = 0;
 
 setInterval(function(){
 	console.log(avail / btcNow);
-		if (avail / btcNow < 0.55){
+		if (avail / btcNow < 0.66){
 
 					liq = 'margin > 66%'
-					console.log(liq)
 			restClient.positions().then((result) => {	
 		for (var r in result){
 			for (var a in result[r]){
@@ -106,7 +105,6 @@ setInterval(function(){
 		if (-1*(100*(1-( btcNow / startBtc) )).toPrecision(4) - oldPerc < -0.015){
 
 					liq = 'portfolio > 1.5% loss in 30s'
-					console.log(liq)
 			restClient.positions().then((result) => {	
 		for (var r in result){
 			for (var a in result[r]){
@@ -173,7 +171,6 @@ restClient.positions().then((result) => {
   pnl = result[r][a].profitLoss;
 				if(result[r][a].profitLoss < -0.030 ){
 					liq = 'pos < 3%'
-					console.log(liq)
 			if (result[r][a].direction == 'sell'){
 				restClient.buy(result[r][a].instrument, -1 * result[r][a].size, ha, 'safe').then((result) => {
 					});
@@ -258,7 +255,6 @@ setInterval(function(){
 		if (result[r][a].direction == 'buy' && result[r][a].size > ((tar * 3 )						) || result[r][a].size < (-1 * (tar * 3) )){
 
 					liq = 'double outter bounds'
-					console.log(liq)
 				var s = result[r][a].size;
 				console.log('20000')
 			if (result[r][a].direction == 'sell'){
@@ -388,7 +384,6 @@ setInterval(function(){
 if (count>3){
 
 	liq = 'not actually liquidating, but there were 4+ buys/sells at new prices so we took a 20s break'
-					console.log(liq)
 	gogo = false;
 	setTimeout(function(){
 		gogo = true;
