@@ -91,7 +91,7 @@ if (req.query.name){
 }
 }
 restClient.account().then((result) => {
-  startBtc=9.316318236;
+  startBtc=7.991688546;
 });
 var pos;
 setInterval(function(){
