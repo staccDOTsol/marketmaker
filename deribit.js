@@ -397,7 +397,16 @@ for (var o in result[a]){
 }
 });
 }, 250);
-
+setInterval(function(){
+	restClient.getopenorders('BTC-PERPETUAL').then((result) => {
+	gogoFour = 0;
+	for (var a in result){	
+for (var o in result[a]){
+	gogoFour++;
+}
+}
+})
+}, 5000)
 setInterval(function(){
 if (count>3){
 
