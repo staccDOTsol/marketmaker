@@ -6,7 +6,7 @@ var bodyParser = require('body-parser')
 app.set('view engine', 'ejs');
 
 app.listen(process.env.PORT || 8080, function() {});
-var restClient = new RestClient('','');
+var restClient = new RestClient('HYhnLyH9qEvs','vYC5OQQH7ECTQTORNALOPSVSPMSFXYWC7', 'https://test.deribit.com');
 var startBtc;
 var btcNow;
 var tw = require( './trendyways.min.js')
@@ -316,11 +316,13 @@ for (var o in result[a]){
 			}
 		}
 	});
-if (go){
+if (go && gogo){
 	tar = tar;
 		restClient.sell('BTC-PERPETUAL', tar, ha).then((result) => {
 			console.log(result);
 					});
+			acounter++;
+			acounter++;
 		restClient.buy('BTC-PERPETUAL', tar, lb).then((result) => {
 			console.log(result);
 					});
@@ -328,6 +330,7 @@ if (go){
 	});
 
 }, 5000);
+var acounter = 0;
 setInterval(function(){
 restClient.getorderbook('BTC-PERPETUAL').then((result) => {
 ha = 5000000000000000000000000000;
@@ -358,6 +361,7 @@ if (gogo == true && buying != lbOld  && c < 2){
 can = true;
 tar = (btcNow * ha) / 4;
 setTimeout(function(){
+	acounter++;
 restClient.buy('BTC-PERPETUAL', tar, lb).then((result) => {
 buying = lb;
 			console.log(result);
@@ -369,6 +373,7 @@ if (gogo == true && selling != haOld && c < 2 ){
 	tar = (btcNow * ha) / 4;
 can = true;
 setTimeout(function(){
+	acounter++:
 restClient.sell('BTC-PERPETUAL', tar, ha).then((result) => {
 selling = ha;
 			console.log(result);
@@ -394,13 +399,13 @@ for (var o in result[a]){
 }, 1250);
 
 setInterval(function(){
-if (count>3){
+if (acounter>3){
 
 	liq = 'not actually liquidating, but there were 4+ buys/sells at new prices so we took a 20s break'
 	gogo = false;
 	setTimeout(function(){
 		gogo = true;
-	}, 20000)
+	}, 60000)
 }
-count = 0;
-}, 8000)
+acounter = 0;
+}, 4000)
