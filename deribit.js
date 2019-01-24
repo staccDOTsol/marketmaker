@@ -141,7 +141,7 @@ setInterval(async function(){
 		}
 	});
 		}
-}, 1500)
+}, 7500)
 setInterval(async function(){
 	if (oldPerc != 0){
 		if (-1*(100*(1-( btcNow / startBtc) )).toPrecision(4) - oldPerc < -0.015){
@@ -216,7 +216,7 @@ restClient.positions().then((result) => {
 		}
 		}
 	});
-}, 1500)
+}, 7500)
 var avail;
 setInterval(function(){
 
