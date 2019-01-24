@@ -322,13 +322,12 @@ for (var o in result[a]){
 		}
 	});
 if (go){
-	tar = tar + btcNow * 500;
-	if (gogoFour < 16){
+	if (gogoFour < 5){
 		gogoFour++;
 		restClient.sell('BTC-PERPETUAL', tar, ha).then((result) => {
 					});
 	}
-	if (gogoFour < 16){
+	if (gogoFour < 5){
 		gogoFour++;
 		restClient.buy('BTC-PERPETUAL', tar, lb).then((result) => {
 					});
@@ -358,7 +357,7 @@ if (result.result.asks[a].price < ha){
 }
 }
 var can = false;
-if (gogo == true && buying != lbOld && gogoFour < 16 ){
+if (gogo == true && buying != lbOld && gogoFour < 5 ){
 	gogoFour++;
 can = true;
 tar = (btcNow * ha) / 4;
@@ -369,7 +368,7 @@ count++;
 	});
 }, 800);
 }
-if (gogo == true && selling != haOld && gogoFour < 16 ){
+if (gogo == true && selling != haOld && gogoFour < 5 ){
 	gogoFour++;
 	tar = (btcNow * ha) / 4;
 can = true;
