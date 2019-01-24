@@ -15,6 +15,8 @@ var tw = require( './trendyways.min.js')
 
 var GoogleSpreadsheet = require('google-spreadsheet');
 var doc = new GoogleSpreadsheet('1pN7RECRznPYKGgpyJdkfTacEX-OxjQyo9YyDLhIRB5M');
+
+var async = require('async');
 async.series([
     function setAuth(step) {
         var creds = require('./googlesheets.json');
@@ -35,7 +37,6 @@ async.series([
     }
     ]
 );
-var async = require('async');
 var sheet;
 var count = 0;
 var gogo = true;
